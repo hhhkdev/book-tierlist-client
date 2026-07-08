@@ -1,7 +1,11 @@
 {
   "permissions": {
+    "defaultMode": "bypassPermissions",
     "allow": [
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(curl -s -c /tmp/cookies.txt -b /tmp/cookies.txt http://localhost:3000/signup -o /dev/null -w \"signup page: %{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(npx --no-install playwright --version)"
     ]
   }
 }

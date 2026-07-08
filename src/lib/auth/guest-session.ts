@@ -47,5 +47,11 @@ export async function getGuestSession(roomId: string): Promise<GuestSessionPaylo
 
 export async function clearGuestSession(roomId: string): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.delete(cookieName(roomId));
+  cookieStore.set(cookieName(roomId), "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 0,
+  });
 }

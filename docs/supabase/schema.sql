@@ -148,6 +148,14 @@ returns trigger as $$
 declare
   room_is_deployed boolean;
 begin
+  -- Depth > 1 means this row-level trigger fired as part of an ON DELETE
+  -- CASCADE from a parent DELETE (e.g. deleting the whole room). That must
+  -- always be allowed — only a *direct* mutation of room_books while the
+  -- room stays deployed should be blocked.
+  if pg_trigger_depth() > 1 then
+    return coalesce(new, old);
+  end if;
+
   select is_deployed into room_is_deployed
   from rooms
   where id = coalesce(new.room_id, old.room_id);

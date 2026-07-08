@@ -15,6 +15,9 @@ export async function SiteHeader() {
         <nav className="flex items-center gap-3 text-sm">
           {session ? (
             <>
+              <Link href="/rooms/mine" className="text-muted-foreground hover:text-foreground">
+                내 방
+              </Link>
               <Link href="/rooms/new" className="text-muted-foreground hover:text-foreground">
                 방 만들기
               </Link>
